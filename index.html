@@ -5,165 +5,423 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox - Login</title>
     <style>
-        /* Reset and Base Styles */
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #f2f4f5;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-image: url('https://www.minitool.com/images/uploads/news/2023/01/roblox-sign-up/roblox-sign-up-4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #090b12;
+            color: #ffffff;
+            text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            color: #393b3d;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 12, 18, 0.65);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 1180px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(7, 10, 16, 0.92);
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            z-index: 2;
+        }
+
+        .nav-left,
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.82);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .nav-search {
+            position: relative;
+        }
+
+        .search-input {
+            width: 220px;
+            padding: 8px 38px 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            font-size: 13px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 12px;
+        }
+
+        .signup-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: #2f60ff;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .signup-pill:hover {
+            background: #4a76ff;
+        }
+
 
         /* Main Container */
         .login-base-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            width: 400px;
-            max-width: 90%;
+            background-color: rgba(20, 24, 33, 0.96);
+            padding: 34px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+            width: 100%;
+            max-width: 380px;
             text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo/Branding */
+        .logo-container {
+            margin-bottom: 28px;
+        }
+
+        .roblox-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         /* Header */
         .login-header {
-            font-size: 24px;
-            font-weight: 500;
-            color: #393b3d;
-            margin-bottom: 24px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 18px;
             margin-top: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .login-subtitle {
+            font-size: 13px;
+            color: #b0b0b0;
+            margin-bottom: 0;
+            margin-top: 0;
+            display: none;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         /* Form Group */
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-align: left;
         }
 
-        /* Hidden Labels */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0,0,0,0);
-            border: 0;
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         /* Input Fields */
         .input-field {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 14px;
             font-size: 14px;
-            color: #393b3d;
-            background-color: #fff;
-            border: 1px solid #c7c7c7;
-            border-radius: 5px;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            color: #ffffff;
+            background-color: #1f2430;
+            border: 1px solid #3b415a;
+            border-radius: 10px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: system-ui, -apple-system, sans-serif;
+            -webkit-appearance: none;
+            appearance: none;
         }
+
+        .input-field:hover {
+            border-color: #4d5a85;
+        }
+
         .input-field:focus {
             outline: none;
-            border-color: #00b06f;
-            box-shadow: 0 0 0 2px rgba(0, 176, 111, 0.2);
+            border-color: #4d5a85;
+            box-shadow: 0 0 0 2px rgba(77, 90, 133, 0.18);
         }
+
         .input-field::placeholder {
-            color: #888;
+            color: #97a0c1;
         }
 
         /* Login Button */
         .login-button {
             width: 100%;
             padding: 12px;
-            background-color: #00b06f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
+            background: #3d455f;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 16px;
-        }
-        .login-button:hover {
-            background-color: #00995f;
-        }
-        .login-button:active {
-            background-color: #008555;
-        }
-
-        /* Links */
-        .forgot-credentials-link {
-            margin-top: 20px;
-            font-size: 12px;
-        }
-        .text-link {
-            color: #00b06f;
-            text-decoration: none;
-        }
-        .text-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Sign Up Section */
-        .signup-option {
+            transition: background 0.2s ease, transform 0.2s ease;
             margin-top: 24px;
-            font-size: 12px;
-            color: #666;
+            letter-spacing: 0.3px;
+            font-family: system-ui, -apple-system, sans-serif;
         }
-        .signup-link {
-            color: #00b06f;
+
+        .login-button:hover:not(:disabled) {
+            background: #4d5a8b;
+            transform: translateY(-1px);
+        }
+
+        .login-button:active:not(:disabled) {
+            background: #333b55;
+        }
+
+        .login-button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        /* Forgot Password Link */
+        .forgot-credentials-link {
+            margin-top: 18px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .text-link {
+            color: #ced8ff;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+            font-family: system-ui, -apple-system, sans-serif;
         }
-        .signup-link:hover {
+
+        .text-link:hover {
+            color: #ffffff;
             text-decoration: underline;
+        }
+
+        /* Alternative Login Section */
+        .alternative-login {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .divider-text {
+            text-align: center;
+            margin: 0 0 18px 0;
+            font-size: 12px;
+            color: #95a0c7;
+            font-weight: 500;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .alt-login-button {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: #262b3a;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .alt-login-button:hover {
+            background-color: #32384f;
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .alt-login-button .icon {
+            font-size: 15px;
+        }
+
+        /* Signup Section */
+        .signup-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            text-align: center;
+        }
+
+        .signup-text {
+            font-size: 12px;
+            color: #8f9ac1;
+            margin: 0 0 6px 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .signup-link {
+            display: inline-block;
+            color: #cbd7ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            padding: 0;
+            border-radius: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .signup-link:hover {
+            color: #ffffff;
         }
 
         /* Spinner */
         .spinner {
             display: none;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #00b06f;
+            border: 3px solid #444444;
+            border-top: 3px solid #0052cc;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
+            margin: 24px auto;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
 
         /* Error Message */
         .error-msg {
             display: none;
-            color: #b40000;
-            background-color: #fdeaea;
-            border: 1px solid #b40000;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 13px;
+            color: #ff6b6b;
+            background-color: #3a2a2a;
+            border: 1px solid #664444;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin-top: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-out;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
+    <header class="page-header">
+        <div class="nav-left">
+            <a href="#" class="nav-logo">ROBLOX</a>
+            <a href="#" class="nav-link">Charts</a>
+            <a href="#" class="nav-link">Marketplace</a>
+            <a href="#" class="nav-link">Create</a>
+            <a href="#" class="nav-link">Robux</a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-search">
+                <input class="search-input" type="text" placeholder="Search">
+                <span class="search-icon">🔍</span>
+            </div>
+            <a href="#" class="signup-pill">Sign Up</a>
+        </div>
+    </header>
 
     <div class="login-base-container">
+        <div class="logo-container">
+            <h2 class="roblox-logo">ROBLOX</h2>
+        </div>
+
         <h1 class="login-header">Add account</h1>
+        <p class="login-subtitle">&nbsp;</p>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="login-username" class="sr-only">Username/Email/Phone</label>
+                <label for="login-username">Username/Email/Phone</label>
                 <input id="login-username" name="username" type="text" class="input-field" placeholder="Username/Email/Phone" required>
             </div>
 
             <div class="form-group">
-                <label for="login-password" class="sr-only">Password</label>
+                <label for="login-password">Password</label>
                 <input id="login-password" name="password" type="password" class="input-field" placeholder="Password" required>
             </div>
 
@@ -177,9 +435,19 @@
             <a id="forgot-credentials-link" class="text-link" href="#">Forgot Password or Username?</a>
         </div>
 
-        <div class="signup-option">
-            <span class="no-account-text">Don't have an account?</span>
-            <a id="sign-up-link" class="signup-link" href="https://www.roblox.com/CreateAccount">Sign Up</a>
+        <div class="alternative-login">
+            <div class="divider-text">OR</div>
+            <button type="button" class="alt-login-button otp-button">
+                <span class="icon">📧</span> Email Me a One-Time Code
+            </button>
+            <button type="button" class="alt-login-button device-button">
+                <span class="icon">📱</span> Use Another Device
+            </button>
+        </div>
+
+        <div class="signup-section">
+            <p class="signup-text">Don't have an account?</p>
+            <a id="sign-up-link" class="signup-link" href="https://www.roblox.com/CreateAccount">Sign Up Now</a>
         </div>
     </div>
 
